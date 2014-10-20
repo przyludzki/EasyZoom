@@ -22,7 +22,10 @@
         onShow: undefined,
 
         // Callback function to execute when the flyout is removed.
-        onHide: undefined
+        onHide: undefined,
+
+        // Callback function to execute when the cursor is moved while over the image.
+        onMove: undefined
 
     };
 
@@ -34,7 +37,7 @@
      */
     function EasyZoom(target, options) {
         this.$target = $(target);
-        this.opts = $.extend({}, defaults, options, this.$target.data());
+        this.opts = $.extend({}, defaults, options);
 
         if (this.isOpen === undefined) {
             this._init();
@@ -203,10 +206,17 @@
             this.hide();
         }
         else {
+            var top = xt * -1;
+            var left = xl * -1;
+
             this.$zoom.css({
-                top:  '' + (xt * -1) + 'px',
-                left: '' + (xl * -1) + 'px'
+                top: top,
+                left: left
             });
+
+            if (this.opts.onMove) {
+                this.opts.onMove.call(this, top, left);
+            }
         }
 
     };
@@ -298,6 +308,11 @@
         });
     }
     else if (typeof module !== 'undefined' && module.exports) {
+        module.exports = EasyZoom;
+    }
+
+})(jQuery);
+module.exports) {
         module.exports = EasyZoom;
     }
 
