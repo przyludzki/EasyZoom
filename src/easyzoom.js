@@ -37,7 +37,7 @@
      */
     function EasyZoom(target, options) {
         this.$target = $(target);
-        this.opts = $.extend({}, defaults, options);
+        this.opts = $.extend({}, defaults, options, this.$target.data());
 
         if (this.isOpen === undefined) {
             this._init();
@@ -308,11 +308,6 @@
         });
     }
     else if (typeof module !== 'undefined' && module.exports) {
-        module.exports = EasyZoom;
-    }
-
-})(jQuery);
-module.exports) {
         module.exports = EasyZoom;
     }
 
